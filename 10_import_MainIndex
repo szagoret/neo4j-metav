@@ -1,0 +1,28 @@
+
+USING PERIODIC COMMIT
+LOAD CSV WITH HEADERS FROM "file:/metav/CSV/MainIndex.csv" AS row
+CREATE (w:Word)
+set w = row
+
+CREATE INDEX ON :Word(BookID)
+CREATE INDEX ON :Word(VerseID)
+CREATE INDEX ON :Word(WordID)
+CREATE INDEX ON :Word(PlaceID)
+CREATE INDEX ON :Word(PersonID)
+
+MATCH (w:Word), (v:Verse) where w.VerseID = v.VerseID
+CREATE (w)-[:VERSE]->(v)
+REMOVE w.VerseID
+
+MATCH (w:Word) WHERE w.PlaceID = "0"
+REMOVE w.PlaceID
+
+MATCH (w:Word) WHERE w.PersonID = "0"
+REMOVE w.PersonID
+
+MATCH (w:Word)-[:VERSE]->(v:Verse), (p:Person) where w.PersonID = p.PersonID
+MERGE (p)-[:REFERENCE]->(v)
+
+MATCH (w:Word)-[:VERSE]->(v:Verse), (p:Place) where w.PlaceID = p.PlaceID
+MERGE (p)-[:REFERENCE]->(v)
+

@@ -1,0 +1,7 @@
+USING PERIODIC COMMIT
+LOAD CSV WITH HEADERS FROM "file:/metav/CSV/Places.csv" AS row
+CREATE (p:Place)
+set p = row
+
+CREATE INDEX ON :Place(PlaceID)
+

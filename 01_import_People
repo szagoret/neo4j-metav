@@ -1,0 +1,27 @@
+USING PERIODIC COMMIT
+LOAD CSV WITH HEADERS FROM "file:/metav/CSV/People.csv" AS row
+CREATE (p:Person)
+set p = row
+
+CREATE INDEX ON :Person(PersonID)
+
+USING PERIODIC COMMIT
+LOAD CSV WITH HEADERS FROM "file:/metav/CSV/PeopleGroups.csv" AS row
+MERGE (g:Group { name: row.GroupName })
+ON CREATE SET g.name = row.GroupName
+
+USING PERIODIC COMMIT
+LOAD CSV WITH HEADERS FROM "file:/metav/CSV/PeopleGroups.csv" AS row
+MATCH (p:Person), (g:Group) where p.PersonID = row.PersonID and g.name = row.GroupName
+CREATE (p)-[:MEMBER_OF]->(g)
+
+USING PERIODIC COMMIT
+LOAD CSV WITH HEADERS FROM "file:/metav/CSV/PeopleRelationships.csv" AS row
+MATCH (p1:Person), (p2:Person) where p1.PersonID = row.Primary and p2.PersonID = row.RelatedTo and row.RelType = "father"
+MERGE (p2)-[:FATHER]->(p1)
+
+USING PERIODIC COMMIT
+LOAD CSV WITH HEADERS FROM "file:/metav/CSV/PeopleRelationships.csv" AS row
+MATCH (p1:Person), (p2:Person) where p1.PersonID = row.Primary and p2.PersonID = row.RelatedTo and row.RelType = "mother"
+MERGE (p2)-[:MOTHER]->(p1)
+

@@ -1,0 +1,14 @@
+digraph G {
+
+	Verse -> Subtopic [label = "TOPIC"];
+	Word -> Verse [label = "VERSE"];
+	Subtopic -> Topic [label = "SUB_TOPIC"];
+	Verse -> Verse [label = "CROSS_REFERENCE"];
+	Person -> Group [label = "MEMBER_OF"];
+	Person -> Person [label = "FATHER"];
+	Person -> Person [label = "MOTHER"];
+	Person -> Verse [label = "REFERENCE"];
+	Place -> Verse [label = "REFERENCE"];
+	
+
+}

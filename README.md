@@ -56,7 +56,7 @@ In the next few steps we want to:
 	import>
 ```
 
-Please note that your install paths are going to be different and you will need to use the full path when linking and change directories.
+Please note that your install paths are going to be different and you will need to use the full path when linking and changing directories.
 
 ## Loading Data
 
@@ -79,6 +79,8 @@ CREATE INDEX ON :Person(PersonID)
 This represents two commands, one to import the data, which is the first 4 lines, and one to put an index on the property PersonID. All commands will have a one or more blank lines between them and the next command.
 
 ## Data Model
+
+Here is my interpretation of the data model. Trying to keep a balence between number of nodes and connectedness.
 
 [<img src="doc/model.png">](doc/model.png)
 

@@ -9,4 +9,3 @@ USING PERIODIC COMMIT
 LOAD CSV WITH HEADERS FROM "file:/metav/CSV/CrossRefIndex.csv" AS row
 MATCH (v1:Verse), (v2:Verse) where v1.VerseID = row.VerseID and v2.VerseID = row.VerseRefID
 MERGE (v1)-[:CROSS_REFERENCE]-(v2)
-

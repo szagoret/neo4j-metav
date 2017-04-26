@@ -1,0 +1,13 @@
+
+USING PERIODIC COMMIT
+LOAD CSV WITH HEADERS FROM "file:/metav/CSV/Strongs.csv" AS row
+CREATE (s:Strongs)
+set s = row
+
+CREATE INDEX ON :Strongs(StrongsID)
+
+USING PERIODIC COMMIT
+LOAD CSV WITH HEADERS FROM "file:/metav/CSV/StrongsIndex.csv" AS row
+MATCH (s:Strongs), (w:Word) where w.WordID = row.WordID and s.StrongsID = row.StrongsID
+CREATE (w)-[:STRONGS]->(s)
+

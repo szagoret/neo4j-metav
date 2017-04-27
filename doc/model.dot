@@ -1,14 +1,22 @@
 digraph G {
 
-	Verse -> Subtopic [label = "TOPIC"];
-	Word -> Verse [label = "VERSE"];
-	Subtopic -> Topic [label = "SUB_TOPIC"];
-	Verse -> Verse [label = "CROSS_REFERENCE"];
+	Subtopic -> Topic [label = "TOPIC"];
+	Verse -> Subtopic [label = "SUB_TOPIC"];
+
 	Person -> Group [label = "MEMBER_OF"];
 	Person -> Person [label = "FATHER"];
 	Person -> Person [label = "MOTHER"];
+
 	Person -> Verse [label = "REFERENCE"];
 	Place -> Verse [label = "REFERENCE"];
-	
+	Word -> Verse [label = "VERSE"];
+	Verse -> Verse [label = "CROSS_REFERENCE"];
+
+	Book -> Chapter [label = "CHAPTER"];
+	Chapter -> Paragraph [label = "PARAGRAPH"];
+	Paragraph -> Sentence [label = "SENTENCE"];
+	Sentence -> Verse [label = "VERSE"];
+
+	Word -> Strongs [label = "STRONGS"];
 
 }

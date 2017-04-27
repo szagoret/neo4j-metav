@@ -13,11 +13,11 @@ set st = row
 CREATE INDEX ON :Subtopic(TopicID)
 
 MATCH (t:Topic), (st:Subtopic) where t.name = st.Topic
-CREATE (st)-[:SUB_TOPIC]->(t)
+CREATE (st)-[:TOPIC]->(t)
 REMOVE st.Topic
 
 USING PERIODIC COMMIT
 LOAD CSV WITH HEADERS FROM "file:/metav/CSV/TopicIndex.csv" AS row
 MATCH (st:Subtopic), (v:Verse) where st.TopicID = row.TopicID and v.VerseID = row.VerseID
-CREATE (v)-[:TOPIC]->(st)
+CREATE (v)-[:SUB_TOPIC]->(st)
 

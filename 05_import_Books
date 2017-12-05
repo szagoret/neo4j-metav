@@ -5,4 +5,3 @@ CREATE (b:Book)
 set b = row
 
 CREATE INDEX ON :Book(BookID)
-

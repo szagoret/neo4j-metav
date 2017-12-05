@@ -1,9 +1,9 @@
+CREATE INDEX ON :Topic(name)
+
 USING PERIODIC COMMIT
 LOAD CSV WITH HEADERS FROM "file:/metav/CSV/Topics.csv" AS row
 MERGE (t:Topic { name: row.Topic })
 ON CREATE SET t.name = row.Topic
-
-CREATE INDEX ON :Topic(name)
 
 USING PERIODIC COMMIT
 LOAD CSV WITH HEADERS FROM "file:/metav/CSV/Topics.csv" AS row
@@ -11,6 +11,7 @@ CREATE (st:Subtopic)
 set st = row
 
 CREATE INDEX ON :Subtopic(TopicID)
+CREATE INDEX ON :Subtopic(Topic)
 
 MATCH (t:Topic), (st:Subtopic) where t.name = st.Topic
 CREATE (st)-[:TOPIC]->(t)

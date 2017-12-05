@@ -26,6 +26,9 @@ MERGE (p)-[:REFERENCE]->(v)
 MATCH (w:Word)-[:VERSE_REFERENCE]->(v:Verse), (p:Place) where w.PlaceID = p.PlaceID
 MERGE (p)-[:REFERENCE]->(v)
 
+CREATE INDEX ON :Chapter(name)
+CREATE INDEX ON :Paragraph(name)
+CREATE INDEX ON :Sentence(name)
 
 LOAD CSV WITH HEADERS FROM "file:/metav/CSV/MainIndex.csv" AS row
 MATCH (v:Verse), (b:Book) WHERE row.BookID = b.BookID and v.VerseID = row.VerseID

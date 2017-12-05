@@ -4,6 +4,7 @@ CREATE (p:Person)
 set p = row
 
 CREATE INDEX ON :Person(PersonID)
+CREATE INDEX ON :Group(name)
 
 USING PERIODIC COMMIT
 LOAD CSV WITH HEADERS FROM "file:/metav/CSV/PeopleGroups.csv" AS row
